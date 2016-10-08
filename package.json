@@ -1,0 +1,31 @@
+{
+  "name": "the-deck",
+  "version": "1.0.0",
+  "description": "Describe the-deck here",
+  "private": true,
+  "scripts": {
+    "build": "nwb build-react-app",
+    "clean": "nwb clean-app",
+    "start": "nwb serve-react-app",
+    "test": "nwb test",
+    "test:coverage": "nwb test --coverage",
+    "test:watch": "nwb test --server"
+  },
+  "dependencies": {
+    "@zalando/oauth2-client-js": "0.0.17",
+    "@zalando/superagent-oauth2-client": "0.0.19",
+    "lodash.omit": "^4.5.0",
+    "normalize.css": "5.0.0",
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-router": "2.8.1",
+    "spectacle": "1.2.5",
+    "superagent": "^1.2.0"
+  },
+  "devDependencies": {
+    "nwb": "0.12.x"
+  },
+  "author": "",
+  "license": "MIT",
+  "repository": ""
+}
