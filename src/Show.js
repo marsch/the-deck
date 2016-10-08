@@ -108,7 +108,7 @@ class SpectacleResult extends React.Component {
           })
         })
         preloader(preloadImages)
-        debugger;
+        
         this.setState({ items: loadedItems, site: site })
       })
     }
