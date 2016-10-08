@@ -1,3 +1,4 @@
+
 const config = {
   AUTH: {
     CLIENT_ID: "__APP_CLIENT_ID__",

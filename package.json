@@ -23,7 +23,8 @@
     "superagent": "^1.2.0"
   },
   "devDependencies": {
-    "nwb": "0.12.x"
+    "nwb": "0.12.x",
+    "string-replace-loader": "^1.0.5"
   },
   "author": "",
   "license": "MIT",
