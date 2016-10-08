@@ -4,12 +4,16 @@ import {
   Heading, Image, Layout, ListItem, List, Quote, Spectacle, Slide, Text
 } from 'spectacle';
 
+import preloader from "spectacle/lib/utils/preloader";
+
 import config from './config'
 import DataSource from './DataSource'
 import createTheme from "spectacle/lib/themes/default";
 
 const theme = createTheme({
-  primary: "#ff4081"
+  primary: "black",
+  tertiary: "#ff4081",
+  secondary: "white"
 });
 
 
@@ -20,7 +24,7 @@ const createItemContent = (block, index) => {
 
       if(block.metadata.title) {
 
-        const head = <Heading size={1} caps textColor='primary'>{block.metadata.title}</Heading>
+        const head = <Heading size={1} caps textColor='tertiary'>{block.metadata.title}</Heading>
         const description = <Text textColor='tertiary'>{block.metadata.description}</Text>
         return [head, description]
       }
@@ -28,11 +32,11 @@ const createItemContent = (block, index) => {
     case 'text':
       return <Text textColor='tertiary' key={block.id}></Text>
     case 'h1':
-      return <Heading size={1} caps textColor='primary' key={block.id}>{block.text}</Heading>
+      return <Heading size={1} caps textColor='tertiary' key={block.id}>{block.text}</Heading>
     case 'h2':
-      return <Heading size={2} caps textColor='tertiary' key={block.id}>{block.text}</Heading>
+      return <Heading size={2} caps textColor='secondary' key={block.id}>{block.text}</Heading>
     case 'h3':
-      return <Heading size={3} caps textColor='tertiary' key={block.id}>{block.text}</Heading>
+      return <Heading size={3} caps textColor='secondary' key={block.id}>{block.text}</Heading>
     default:
       return null
 
@@ -50,7 +54,7 @@ const createItemSlide = (item) => {
     }
     slideConfig.bgImage  = item.block.cover.src
   } else {
-    slideConfig.bgColor = 'secondary'
+    slideConfig.bgColor = 'primary'
   }
 
   const slideNotes = item.content.map((bl) => {
@@ -93,9 +97,19 @@ class SpectacleResult extends React.Component {
       .then((results) => {
         const sites = results.shift().body
         const site = sites.find((s) => s.repo === this.props.repo)
-        debugger;
+
         const loadedItems = results.map((resp) => resp.body)
-        this.setState({ items: loadedItems })
+        const preloadImages = []
+        loadedItems.forEach((item) => {
+          return item.content.forEach((block) => {
+            if(block && block.cover && block.cover.src) {
+              preloadImages.push(block.cover.src)
+            }
+          })
+        })
+        preloader(preloadImages)
+        debugger;
+        this.setState({ items: loadedItems, site: site })
       })
     }
 
@@ -110,8 +124,8 @@ class SpectacleResult extends React.Component {
 
 
     return (
-      <Spectacle theme={theme}>
-        <Deck>
+      <Spectacle theme={theme} bgColor="secondary">
+        <Deck bgColor="secondary">
           {slides}
         </Deck>
       </Spectacle>
